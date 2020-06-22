@@ -13,3 +13,4 @@ API Rest para projeto de logística CTRL-LOG
 
 + PSR's
 + TDD com Testes Unitários (PHPUnit)
++ JWT para segurança
