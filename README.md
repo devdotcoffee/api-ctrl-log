@@ -5,8 +5,6 @@
 [![Author](https://img.shields.io/badge/author-Erick-008080?style=flat-square)](https://github.com/Erivks)
 [![Author](https://img.shields.io/badge/author-Matheus-008080?style=flat-square)](https://github.com/MatheuSiqueira)
 
-</br>
-
 ## Sobre
 
 API Rest para projeto de logística CTRL-LOG
