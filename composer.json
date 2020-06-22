@@ -1,5 +1,5 @@
 {
-    "name": "devdotcoffee/api-ctrl",
+    "name": "devdotcoffee/apictrl",
     "description": "API Rest para projeto de logística CTRL-LOG",
     "minimum-stability": "stable",
     "license": "MIT",
@@ -12,7 +12,7 @@
         },
         {
             "name": "Matheus Siqueira",
-            "email": "",
+            "email": "matheusmbc13@gmail.com",
             "role": "Developer",
             "homepage": "https://github.com/MatheuSiqueira"
         }
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App//": "app/"
+            "App\\": "app/"
         }
     },
     "require-dev": {
