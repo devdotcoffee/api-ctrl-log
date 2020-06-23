@@ -14,15 +14,20 @@ class Database
         {
             try{
 
-                self::$connection = new PDO("mysql:dbname=projetologistica;host=localhost;","root","");
+                self::$connection = new PDO("mysql:dbname=projetlogistica;host=localhost;","root","");
                 
                 return self::$connection;
 
-            } catch(PDOException $e){
-
-                echo "Erro no Banco de dados: " . $e->getMesssage();
+            } catch(\PDOException $e){
+                if ($e->getCode() == "1109") 
+                {
+                    self::createSchema();
+                
+                } else {
+                    echo "Não foi possível se conectar ao banco: " . $e->getMessage();
+                }
             
-            } catch(Exception $e){
+            } catch(\Exception $e){
                 
                 echo "Um erro foi encontrado: " . $e->getMessage();
             }
@@ -32,6 +37,11 @@ class Database
         
         }
 
+    }
+
+    private static function createSchema(): int
+    {
+        //Implementar método para montar tabela
     }
 
 }

@@ -8,7 +8,10 @@ use PDO;
 
 class DatabaseTest extends TestCase 
 {
-    public function testConnect()
+    /**
+     * @author Erick
+     */
+    public function testConnect(): void
     {
         $this->assertInstanceOf(PDO::class, Database::connect());
     }
