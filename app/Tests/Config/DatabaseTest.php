@@ -8,8 +8,13 @@ use PDO;
 
 class DatabaseTest extends TestCase 
 {
-    public function testConnect()
+    public function testConnect(): void
     {
-        $this->assertInstanceOf(PDO::class, Database::connect());
+        $this->assertInstanceOf(PDO::class, Database::connect(), "Conexão não estabelecida");
+    }
+
+    public function testCreateSchema(): void
+    {
+        $this->assertEquals(0, Database::createSchema());
     }
 }
