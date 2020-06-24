@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface Table {
 
-    public function create();
+    public static function create();
     
-    public function drop();
+    public static function drop();
 }
