@@ -13,8 +13,4 @@ class DatabaseTest extends TestCase
         $this->assertInstanceOf(PDO::class, Database::connect(), "Conexão não estabelecida");
     }
 
-    public function testCreateSchema(): void
-    {
-        $this->assertEquals(0, Database::createSchema());
-    }
 }
