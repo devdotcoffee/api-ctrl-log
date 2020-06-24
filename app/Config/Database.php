@@ -14,18 +14,17 @@ class Database
         {
             try{
 
-                self::$connection = new PDO("mysql:dbname=projetlogistica;host=localhost;","root","");
+                self::$connection = new PDO(
+                    DB_CONFIG['DRIVER'] . ":dbname=" . DB_CONFIG['DBNAME'] . ";host=" . DB_CONFIG['HOST'] . ";",
+                    DB_CONFIG['USER'],
+                    DB_CONFIG['PASSWORD']
+                );
                 
                 return self::$connection;
 
             } catch(\PDOException $e){
-                if ($e->getCode() == "1109") 
-                {
-                    self::createSchema();
-                
-                } else {
-                    echo "Não foi possível se conectar ao banco: " . $e->getMessage();
-                }
+
+                self::verifyIfDatabaseExists($e);
             
             } catch(\Exception $e){
                 
@@ -39,9 +38,30 @@ class Database
 
     }
 
-    private static function createSchema(): int
+    public static function createSchema(): int
     {
-        //Implementar método para montar tabela
+        $connection = new PDO(
+            DB_CONFIG['DRIVER'] . ":host=" . DB_CONFIG['HOST'],
+            DB_CONFIG['USER'],
+            DB_CONFIG['PASSWORD']
+        );
+
+        $database = "`" . DB_CONFIG['DBNAME'] . "`";
+
+        try {
+            return $connection->exec("CREATE DATABASE " . $database . ";");
+        } catch (\PDOException $e) {
+            echo "Erro ao tentar criar banco de dados: " . $e->getMessage();
+        }
+    }
+
+    private static function verifyIfDatabaseExists(\PDOException $error): void 
+    {
+        if ($error->getCode() == 1049) {
+            self::createSchema();
+        } else {
+            echo 'Erro ao tentar fazer conexão: ' . $error->getMessage();
+        }
     }
 
 }
