@@ -25,7 +25,7 @@ class DataDefinition
     {
         foreach ($this->tables as $table) {
             $classWithNamespace = 'App\Tables\\' . $table;
-            forward_static_call_array(array($classWithNamespace, 'create'));
+            forward_static_call(array($classWithNamespace, 'create'));
         }
     }
 
@@ -33,7 +33,17 @@ class DataDefinition
     {
         foreach ($this->tables as $table) {
             $classWithNamespace = 'App\Tables\\' . $table;
-            forward_static_call_array(array($classWithNamespace, 'drop'));
+            forward_static_call(array($classWithNamespace, 'drop'));
         }
+    }
+
+    public function getTables(): Array
+    {
+        return $this->tables;
+    }
+
+    public function countTables(): int 
+    {
+        return count($this->tables);
     }
 }
