@@ -6,7 +6,7 @@ use App\Config\Database;
 use App\Interfaces\Table;
 
 /**
- * Class to create and drop cliente table from database
+ * Class to create and drop client table from database
  * 
  * @author Erick O. dos Santos
  */
