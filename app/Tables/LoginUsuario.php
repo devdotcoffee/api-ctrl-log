@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Interfaces\Table;
+namespace App\Tables;
 
 use App\Config\Database;
+use App\Interfaces\Table;
 
 /**
+ * Class to create and drop login table from database
+ * 
  * @author Erick O. dos Santos
  */
 class LoginUsuario implements Table {
  
     public static function create()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec(
                 "CREATE TABLE IF NOT EXISTS `login_usuario` (
@@ -30,7 +33,7 @@ class LoginUsuario implements Table {
 
     public static function drop()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec("DROP TABLE IF EXISTS `login_usuario`;");
         } catch (\PDOException $e) {

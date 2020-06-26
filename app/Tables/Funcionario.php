@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Interfaces\Table;
+namespace App\Tables;
 
 use App\Config\Database;
+use App\Interfaces\Table;
 
 /**
+ * Class to create and drop employee table from database
+ * 
  * @author Erick O. dos Santos
  */
 class Funcionario implements Table {
  
     public static function create(): void
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec(
                 "CREATE TABLE IF NOT EXISTS `funcionario` (
@@ -31,7 +34,7 @@ class Funcionario implements Table {
 
     public static function drop(): void
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec("DROP TABLE IF EXISTS `funcionario`;");            
         } catch (\PDOException $e) {

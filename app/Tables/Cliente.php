@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Interfaces\Table;
+namespace App\Tables;
 
 use App\Config\Database;
+use App\Interfaces\Table;
 
 /**
+ * Class to create and drop client table from database
+ * 
  * @author Erick O. dos Santos
  */
 class Cliente implements Table {
  
     public static function create(): void
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec(
                 "CREATE TABLE IF NOT EXISTS `cliente` (
@@ -21,7 +24,7 @@ class Cliente implements Table {
                     `email` varchar(255) NOT NULL,
                     `telefone` varchar(11) NOT NULL,
                     `endereco` varchar(255) NOT NULL,
-                    PRIMARY KEY ('id_cliente')
+                    PRIMARY KEY (`id_cliente`)
                 )" . " ENGINE=MyISAM DEFAULT CHARSET=latin1;"
             );
         } catch (\PDOException $e) {
@@ -31,7 +34,7 @@ class Cliente implements Table {
 
     public static function drop(): void
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec("DROP TABLE IF EXISTS `cliente`;");            
         } catch (\PDOException $e) {

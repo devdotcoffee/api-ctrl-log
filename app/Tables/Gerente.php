@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Interfaces\Table;
+namespace App\Tables;
 
 use App\Config\Database;
+use App\Interfaces\Table;
 
 /**
+ * Class to create and drop manager table from database
+ * 
  * @author Erick O. dos Santos
  */
 class Gerente implements Table {
  
     public static function create()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec(
                 "CREATE TABLE IF NOT EXISTS `gerente` (
@@ -31,7 +34,7 @@ class Gerente implements Table {
 
     public static function drop()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec("DROP TABLE IF EXISTS `gerente`;");
         } catch (\PDOException $e) {

@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Interfaces\Table;
+namespace App\Tables;
 
 use App\Config\Database;
+use App\Interfaces\Table;
 
 /**
+ * Class to create and drop order table from database
+ * 
  * @author Erick O. dos Santos
  */
 class Pedido implements Table {
  
     public static function create()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec(
                 "CREATE TABLE IF NOT EXISTS `pedido` (
@@ -35,7 +38,7 @@ class Pedido implements Table {
 
     public static function drop()
     {
-        $connection = Database::connection();
+        $connection = Database::connect();
         try {
             $connection->exec("DROP TABLE IF EXISTS `pedido`;");
         } catch (\PDOException $e) {
