@@ -11,6 +11,8 @@ use App\Interfaces\Table;
  * @author Erick O. dos Santos
  */
 class Funcionario implements Table {
+
+    private static $tableName = "funcionario";
  
     public static function create(): void
     {
@@ -41,5 +43,23 @@ class Funcionario implements Table {
             echo "Erro ao tentar deletar tabela: " . $e->getMessage();
         }
 
+    }
+
+    public static function verifyIfExists(): bool
+    {
+        $connection = Database::connect();
+        $query = "SELECT table_name FROM information_schema.tables WHERE table_schema = :database
+        AND table_name = :table";
+        $stmt = $connection->prepare($query);
+        $stmt->bindValue(':database', DB_CONFIG['DBNAME']);
+        $stmt->bindValue(':table', self::$tableName);
+        $stmt->execute();
+        $rows = $stmt->rowCount();
+
+        if ($rows > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 }
