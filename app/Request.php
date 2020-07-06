@@ -2,10 +2,17 @@
 
 namespace App;
 
+/**
+ * @author Erick O. dos Santos
+ */
 class Request {
 
     private static $namespace = "App\Controller\\";
 
+    /**
+     * Open the request URL and execute the respective class
+     * 
+     */
     public static function open(Array $url, String $method): String
     {
         header('Content-type: application/json');
@@ -26,6 +33,9 @@ class Request {
         }
     } 
 
+    /**
+     * Call the class if exists
+     */
     private static function callClass(String $params, String $method): String
     {
         $params = explode("/", $params); 
