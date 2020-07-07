@@ -3,7 +3,7 @@
 namespace App\CLI;
 
 use App\Config\DataDefinition;
-
+use App\Config\Seeder;
 /**
  * @author Erick O. dos Santos
  */
@@ -49,13 +49,17 @@ class Command {
         }
     }
 
-    public static function createTables(): void 
+    public static function createTables(Array $arguments): void 
     {
         $data = new DataDefinition();
 
         echo("Criando Tabelas...\n");
         $data->createTables();
-        echo("Tabelas criadas com sucesso.");
+        echo("Tabelas criadas com sucesso.\n");
+        if (isset($arguments[2])) {
+            self::seed($arguments[2]);
+        }
+        
     }
 
     public static function dropTables(): void
@@ -64,10 +68,10 @@ class Command {
 
         echo("Apagando Tabelas...\n");
         $data->dropTables();
-        echo("Tabelas deletadas com sucesso.");
+        echo("Tabelas deletadas com sucesso.\n");
     }
 
-    public static function refresh(): void 
+    public static function refresh(Array $arguments): void 
     {
         $data = new DataDefinition();
 
@@ -75,7 +79,22 @@ class Command {
         $data->dropTables();
         echo("Criando Tabelas...\n");
         $data->createTables();
-        echo("Tabelas criadas com sucesso.");
+        echo("Tabelas criadas com sucesso.\n");
+        if (isset($arguments[2])) {
+            self::seed($arguments[2]);
+        }
 
+    }
+
+    private static function seed(String $argument): void
+    {
+        if ($argument == "--seed") {
+            echo("Inserindo dados na tabela...\n");
+            $seeder = new Seeder();
+            $seeder->seed();
+            echo("Dados inseridos com sucesso.\n");
+        } else {
+            echo($argument." não é um argumento válido.");
+        }
     }
 }
