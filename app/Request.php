@@ -38,13 +38,13 @@ class Request {
      */
     private static function callClass(String $params, String $method): String
     {
-        $params = explode("/", $params); 
+        $params = explode("/", $params);
         $class  = self::nameClass($params[0]);
-        $params = array_shift($params);
-
+        $params = self::removeNullValue($params);
+        
         if (class_exists($class, TRUE)) {
             $class = new $class($params, $method);
-            $class->open();
+            return $class->open();
         } else {
             http_response_code(400);
             return json_encode([
@@ -56,6 +56,17 @@ class Request {
 
     private static function nameClass(String $class): String 
     {
-        return self::$namespace . ucfirst($class) . 's';
+        return self::$namespace . ucfirst($class);
+    }
+
+    private static function removeNullValue(Array $params): Array
+    {
+        $newParams = [];
+        foreach ($params as $key => $value) {
+            if ($value != "") {
+                array_push($newParams, $value);
+            }
+        }
+        return $newParams;
     }
 }
